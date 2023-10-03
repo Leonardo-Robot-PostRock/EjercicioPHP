@@ -38,7 +38,7 @@ if (count($numbers) > 0) {
     if (count($numbers) > 1) {
         print_r("<br> Suma de números: " . $sumOfNumbers);
         $mean = $sumOfNumbers / $length;
-        print_r("<br> La media es: " . $mean);
+        print_r("<br> La media es: " . $mean . "<br>");
     } else {
         echo "<br>No se puede calcular la media con un sólo elemento.";
     }
@@ -55,21 +55,30 @@ if (count($numbers) > 0) {
         }
     }
 
-    $highestOcurring = 0;
-    $mode = null;
 
     if (count($multiDArr) === count($numbers)) {
         echo "<br>No hay moda, no hay números repetidos.";
     } else {
-        //Dado el array multiDArr, itera por cada llave con su valor asociado. (=>) Operador de utilizado para asociar una clave(nombre) con su valor correspondiente.
-        foreach ($multiDArr as $key => $value) {
-            if ($value > $highestOcurring) {
-                $highestOcurring = $value;
-                $mode = $key;
+        $modes = array_keys($multiDArr, max($multiDArr));
+        if (count($modes) > 1) {
+            echo "Las modas son: ";
+        }else {
+            echo "La moda es: ";
+        }
+        for ($i = 0; $i < count($modes); $i++) {
+            if ($modes[$i] !== end($modes)) {
+                print_r($modes[$i] . "|");
+            } else {
+                print_r($modes[$i]);
             }
         }
-        print_r("<br>La moda es: " . $mode);
     }
+
+
+    // print_r("<br>La moda es: " . $modes[0]);
+
+    // echo "<br>Las modas son: " . implode($modes[$i]);
+
 
 } else {
     print_r("No existe arreglo para realizar cálculos");
