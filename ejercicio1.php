@@ -1,14 +1,6 @@
 <?php
-//$numbers = [6,11,4,21,12];
-//echo 'Hello';
-//$numbers = $_GET["arreglo"] . '!';
-//$numbers = array($_GET["arreglo"]);
+
 $numbers = json_decode($_GET["arreglo"] ?? "[]");
-$value = 15;
-
-
-
-
 
 if ($numbers > 0) {
     //ordenar de manera ascendente
