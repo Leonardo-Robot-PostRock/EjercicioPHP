@@ -7,30 +7,44 @@ $numbers = json_decode($_GET["arreglo"] ?? "[]");
 $value = 15;
 
 
-//ordenar de manera ascendente
-sort($numbers);
 
-print_r($numbers);
 
-//obtener la longitud del array
-$length = count($numbers);
-print_r("<br>Largo de arreglo: $length<br>");
 
-if ($length > 0) {
+if ($numbers > 0) {
+    //ordenar de manera ascendente
+    sort($numbers);
+
+    //Mostrar arreglo
+    echo "Arreglo ordenado de manera ascendente<br>";
+    print_r($numbers);
+
+    //obtener la longitud del array
+    $length = count($numbers);
+
+    print_r("<br>Largo de arreglo: $length");
     //Cálculo de mediana----------------------------------------------
-    $half_length = $length / 2;
+    $index = floor($length / 2);
+    $median;
+    //Se puede realizar verficación de otra manera cómo por ejemplo if($length & 1), es una operación de "bitwise AND". 
+    if ($length % 2) {
+        $median = $numbers[$index];
+    } else {
+        //get median number
+        $median = ($numbers[$index - 1] + $numbers[$index]) / 2;
 
-    $median_index = (int) $half_length;
+    }
+    echo "<br>La mediana del arreglo es: " . $median;
 
-    //get median number
-    $median = $numbers[$median_index];
-    print_r("La mediana del arreglo es: " . $median);
 
     //Cálculo de media------------------------------------------------
     $sumOfNumbers = array_sum($numbers);
-    print_r("<br> Suma de números " . $sumOfNumbers);
-    $mean = $sumOfNumbers / $length;
-    print_r("<br> La media es: " . $mean);
+    print_r("<br> Suma de números: " . $sumOfNumbers);
+    if (count($numbers) > 1) {
+        $mean = $sumOfNumbers / $length;
+        print_r("<br> La media es: " . $mean);
+    } else {
+        echo "<br>No se puede calcular la media con un sólo elemento.";
+    }
 
     //Cálculo de moda-------------------------------------------------
     $multiDArr = [];
@@ -48,8 +62,9 @@ if ($length > 0) {
     $mode = null;
 
     if (count($multiDArr) === count($numbers)) {
-        echo "<br>No hay moda, no hay números repetidos";
+        echo "<br>No hay moda, no hay números repetidos.";
     } else {
+        //Dado el array multiDArr, itera por cada llave con su valor asociado. (=>) Operador de utilizado para asociar una clave(nombre) con su valor correspondiente.
         foreach ($multiDArr as $key => $value) {
             if ($value > $highestOcurring) {
                 $highestOcurring = $value;
