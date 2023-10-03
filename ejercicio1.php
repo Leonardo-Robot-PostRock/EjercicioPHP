@@ -2,7 +2,7 @@
 
 $numbers = json_decode($_GET["arreglo"] ?? "[]");
 
-if ($numbers > 0) {
+if (count($numbers) > 0) {
     //ordenar de manera ascendente
     sort($numbers);
 
@@ -14,24 +14,29 @@ if ($numbers > 0) {
     $length = count($numbers);
 
     print_r("<br>Largo de arreglo: $length");
+
     //Cálculo de mediana----------------------------------------------
     $index = floor($length / 2);
     $median;
     //Se puede realizar verficación de otra manera cómo por ejemplo if($length & 1), es una operación de "bitwise AND". 
-    if ($length % 2) {
-        $median = $numbers[$index];
-    } else {
-        //get median number
-        $median = ($numbers[$index - 1] + $numbers[$index]) / 2;
+    if (count($numbers) > 0) {
+        if ($length % 2) {
+            $median = $numbers[$index];
+        } else {
+            //get median number
+            $median = ($numbers[$index - 1] + $numbers[$index]) / 2;
 
+        }
+        echo "<br>La mediana del arreglo es: " . $median;
+    } else {
+        echo "<br>La mediana del arreglo no existe, array vacío";
     }
-    echo "<br>La mediana del arreglo es: " . $median;
 
 
     //Cálculo de media------------------------------------------------
     $sumOfNumbers = array_sum($numbers);
-    print_r("<br> Suma de números: " . $sumOfNumbers);
     if (count($numbers) > 1) {
+        print_r("<br> Suma de números: " . $sumOfNumbers);
         $mean = $sumOfNumbers / $length;
         print_r("<br> La media es: " . $mean);
     } else {
