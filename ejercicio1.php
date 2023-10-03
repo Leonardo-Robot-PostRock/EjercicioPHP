@@ -73,13 +73,6 @@ if (count($numbers) > 0) {
             }
         }
     }
-
-
-    // print_r("<br>La moda es: " . $modes[0]);
-
-    // echo "<br>Las modas son: " . implode($modes[$i]);
-
-
 } else {
     print_r("No existe arreglo para realizar cálculos");
 }
