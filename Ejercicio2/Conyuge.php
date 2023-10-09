@@ -1,7 +1,7 @@
 <?php
-class Conyuge extends Persona
+class Conyuge extends Familia
 {
-    public function __construct($nombre)
+    public function __construct(string $nombre)
     {
         parent::__construct($nombre);
     }
