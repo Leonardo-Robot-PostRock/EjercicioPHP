@@ -17,27 +17,27 @@ $persona->agregarFamiliar($familiar2);
 
 // Agregar un cónyuge (si corresponde)
 $conyuge1 = new Conyuge("Ana");
-$conyuge1->setNacimiento("17/09/2000");
 $persona->agregarConyuge($conyuge1);
-
-$conyuge2 = new Conyuge("Julia");
-$persona->agregarConyuge($conyuge2);
-$conyuge2->setNacimiento("17/09/1999");
-
-
 
 function mostrarInfo($data)
 {
-    echo '<h2>Familiares de ' . $data->getNombre() . '</h2>';
-    echo '<ul>';
-    foreach ($data->presentarFamilia() as $familiar) {
-        echo '<li>' . $familiar->getNombre() . '</li>';
+    echo '<h2>' . $data->getNombre() . '</h2>';
+
+    if ($data instanceof Persona) {
+        echo '<h3>Familiares de ' . $data->getNombre() . '</h3>';
+        echo '<ul>';
+        foreach ($data->presentarFamilia() as $familiar) {
+            echo '<li>' . $familiar->getNombre() . '</li>';
+        }
+        echo '</ul>';
     }
-    echo '</ul>';
-
-    echo "<br>";
 }
-
 mostrarInfo($persona);
+//No es agregada por lo que ya tiene conyuge
+$conyuge2 = new Conyuge("Julia");
+$persona->agregarConyuge($conyuge2);
+
+$conyuge1->mostrarEstadoCivil();
+echo "<br>";
 // Llamar al método imprimir para mostrar la información
 $persona->imprimir();
