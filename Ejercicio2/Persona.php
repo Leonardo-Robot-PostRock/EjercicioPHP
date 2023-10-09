@@ -12,6 +12,15 @@ class Persona
         $this->nacimiento = date("d/m/y");
     }
 
+
+    /**
+     * @return string
+     */
+    public function getNombre(): string
+    {
+        return $this->nombre;
+    }
+
     /**
      * @param string $nacimiento 
      * @return self
