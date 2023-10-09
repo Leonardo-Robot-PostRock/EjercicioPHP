@@ -1,5 +1,5 @@
 <?php
-require_once 'Familia.php'; // Asegúrate de incluir el archivo que contiene Casados
+require_once 'Familia.php';
 
 class Persona extends Familia
 { 
