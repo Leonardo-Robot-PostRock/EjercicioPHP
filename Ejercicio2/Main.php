@@ -1,4 +1,5 @@
 <?php
+
 require_once 'Persona.php';
 require_once 'Hijos.php';
 require_once 'Padres.php';
@@ -24,5 +25,19 @@ $persona->agregarConyuge($conyuge2);
 $conyuge2->setNacimiento("17/09/1999");
 
 
+
+function mostrarInfo($data)
+{
+    echo '<h2>Familiares de ' . $data->getNombre() . '</h2>';
+    echo '<ul>';
+    foreach ($data->presentarFamilia() as $familiar) {
+        echo '<li>' . $familiar->getNombre() . '</li>';
+    }
+    echo '</ul>';
+
+    echo "<br>";
+}
+
+mostrarInfo($persona);
 // Llamar al método imprimir para mostrar la información
 $persona->imprimir();
