@@ -10,8 +10,8 @@ class GestorBD
         try {
             $this->c = new PDO(
                 "mysql:host=localhost;
-            dbname = {$dbname};
-            charset=utf8m64",
+                dbname = {$dbname};
+                charset=utf8m64",
                 $user,
                 $password,
                 [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
