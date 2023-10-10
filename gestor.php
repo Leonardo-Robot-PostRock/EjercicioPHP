@@ -8,7 +8,6 @@ class GestorBD
         string $password
     ) {
         try {
-
             $this->c = new PDO(
                 "mysql:host=localhost;
             dbname = {$dbname};
@@ -22,25 +21,34 @@ class GestorBD
         }
     }
 
-    public function read(string $tabla, array $criterio): array
+    public function read(string $table, array $criteria): array
     {
         try {
-
-            $sql = "SELECT * FROM  $tabla";
-            $whereClause = [];
-            foreach ($criterio as $key => $value) {
-                $whereClause[] = "{key} = :{$key}";
-            }
-            if (!empty($whereClause)) {
+            $sql = "SELECT * FROM  $table";
+            if (!empty($criteria)) {
                 $sql .= ' WHERE ';
-                $sql = " WHERE " . implode(" AND ", $whereClause);
+                $sql = implode(' AND ', array_map(fn ($k) => $k . '= :' . $k, array_keys($criteria)));
             }
             $stmt = $this->c->prepare($sql);
-            $stmt->execute($criterio);
+            $stmt->execute($criteria);
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         } catch (PDOException $e) {
             throw new Exception("Error al leer de la base de datos: " . $e->getMessage());
+        }
+    }
+
+    public function write(string $table, array $values)
+    {
+        try {
+            $fields = implode(", ", array_keys($values));
+            $placeholders = implode(", ", array_fill(0, count($values), "?"));
+            $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$placeholders})";
+        } catch (PDOException $e) {
+            $stmt = $this->c->prepare($sql);
+            $stmt->execute(array_values($values));
+        } catch (PDOException $e) {
+            throw new Exception("Error al escribir en la base de datos: " . $e->getMessage());
         }
     }
 }
