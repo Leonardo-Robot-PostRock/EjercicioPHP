@@ -79,4 +79,19 @@ class GestorBD
         }
     }
 
+    public function delete($table, $criteria)
+    {
+        try {
+            $condiciones = [];
+            foreach ($criteria as $field => $value) {
+                $condiciones[] = "{$field} = ?";
+            }
+            $condiciones = implode(" AND ", $condiciones);
+            $sql = "DELETE FROM {$table} WHERE {$condiciones}";
+            $stmt = $this->c->prepare($sql);
+            $stmt->execute(array_values($criteria));
+        } catch (PDOException $e) {
+            throw new Exception("Error al borrar de la base de datos: " . $e->getMessage());
+        }
+    }
 }
